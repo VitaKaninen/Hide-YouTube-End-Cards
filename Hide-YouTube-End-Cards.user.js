@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide YouTube End Cards (reveal on hover)
 // @namespace    https://github.com/VitaKaninen
-// @version      1.2.0
+// @version      1.3.0
 // @description  Keeps YouTube's end-screen cards and in-video info cards out of the way: cards stay hidden until the cursor has rested on the player for a delay you set, so a click meant to pause the video never lands on a card. Revealing only uncovers cards YouTube would already be showing. The delay is adjustable from the userscript menu.
 // @author       VitaKaninen
 // @match        *://*.youtube.com/*
@@ -42,9 +42,9 @@
     //    with no "visible" set, so YouTube's own state decides the outcome. A card
     //    shows only once the delay has elapsed AND YouTube would have shown it.
     //  - Leaving re-applies the hidden rule at 0s, so cards vanish instantly.
-    // End-screen cards: div[class^="ytp-ce"]. Info-card teaser + "i" button (top right):
-    // .ytp-cards-teaser, .ytp-cards-button.
-    const CARDS = 'div[class^="ytp-ce"], .ytp-cards-teaser, .ytp-cards-button';
+    // Info cards: target the always-displayed container, not .ytp-cards-button, which YouTube
+    // toggles display:none on autohide and a transition cannot run across that.
+    const CARDS = 'div[class^="ytp-ce"], .ytp-chrome-top-buttons';
     styleTag.textContent = `
       div[class*="video-player"]:not(:hover) :is(${CARDS}) {
         visibility: hidden !important;
