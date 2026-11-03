@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide YouTube End Cards (reveal on hover)
 // @namespace    https://github.com/VitaKaninen
-// @version      1.4.0
+// @version      1.5.0
 // @description  Keeps YouTube's end-screen cards and in-video info cards out of the way: cards stay hidden until the cursor has rested on the player for a delay you set, so a click meant to pause the video never lands on a card. Revealing only uncovers cards YouTube would already be showing. The delay is adjustable from the userscript menu.
 // @author       VitaKaninen
 // @match        *://*.youtube.com/*
@@ -62,8 +62,7 @@
   function registerMenu() {
     const newId = GM_registerMenuCommand(
       `Hover delay: ${getDelay()}s (click to change)`,
-      onSettings,
-      { autoClose: false }
+      onSettings
     );
     if (menuId != null && typeof GM_unregisterMenuCommand === "function") {
       GM_unregisterMenuCommand(menuId); // drop the entry with the stale label
